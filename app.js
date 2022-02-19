@@ -32,7 +32,10 @@ app.get("/compose", (req, res) => {
 })
 
 app.post("/compose", (req, res) => {
-  console.log(req.body.composeText)
+  let title = req.body.postTitle;
+  let body = req.body.postBody;
+  console.log(title);
+  console.log(body);
 })
 
 app.listen(3000, function() {
