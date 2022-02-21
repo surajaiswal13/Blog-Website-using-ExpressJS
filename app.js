@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 
   Blog.find({}, function(err, posts) {
     if (!err){
-      console.log(posts);
+      // console.log(posts);
       res.render("home", {"homeContent": homeStartingContent, "posts":posts});
     } else {
       console.log(err);
@@ -83,11 +83,25 @@ app.get("/posts/:postName", (req, res) => {
   // console.log(req.params.postName);
   // const requestedTitle = _.lowerCase(req.params.postName);
   const requestedTitle = req.params.postName;
-  // console.log(requestedTitle);
+  console.log(requestedTitle);
 
   Blog.find({}, (err, foundBlogs) => {
+    // console.log(foundBlogs);
     console.log(foundBlogs);
-    res.render("post", {"postDetail": foundBlogs})
+    foundBlogs.forEach((blog) => {
+      console.log("TESTING");
+      // console.log(requestedTitle);
+      // console.log(blog['_id']+"");
+      blogId = blog['_id']+""
+      if (blogId === requestedTitle){
+
+        res.render("post", {"post": blog})
+        // res.redirect("/")
+      } else {
+        console.log("Not Found");
+      }
+    })
+    // res.render("post", {"posts": foundBlogs})
   })
 
   // for(let i = 0; i<posts.length; i++) {
